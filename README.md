@@ -2,6 +2,18 @@
 
 This is a compilation of essential tools for various categories in CTF challenges, along with descriptions, download links, and compatibility information.
 
+# Using Linux?
+
+If you're already inside a Linux environment or planning to run a linux environment via WSL feel free to follow these steps to install most of these tools.
+1. Clone this repo
+```
+git clone https://github.com/DarkDenims/CTF-Toolkit-for-Beginners.git
+```
+2. Move to the directory and run the install.sh file
+```
+sudo ./install.sh
+```
+
 ## Cryptography
 
 | Tool        | Description                                                 | Where to Get It | Used on      |
