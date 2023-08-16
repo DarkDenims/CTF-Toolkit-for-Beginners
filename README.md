@@ -12,6 +12,7 @@ sudo ./install.sh
 3. Select which type of distro your linux environment is under, and choose which software to install.
 
 
+# Tools sorted by Category
 ## Cryptography
 
 | Tool        | Description                                                 | Where to Get It | Used on      |
