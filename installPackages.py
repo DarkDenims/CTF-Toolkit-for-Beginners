@@ -1,6 +1,7 @@
 import inquirer
 import os
 
+# Define your package lists
 package_lists = {
     "Cryptography": ["Cryptool", "Hashcat"],
     "Networking": ["tcpdump", "nmap"],
@@ -11,10 +12,14 @@ package_lists = {
     "Misc": ["PayloadsAllTheThings", "Seclists", "hydra", "rockyou"]
 }
 
+# Define your package commands
 package_commands = {
-    "cryptool": "wget https://github.com/jcryptool/core/releases/download/1.0.9/JCrypTool-1.0.9-Linux-64bit.tar.gz && tar -zxvf JCrypTool-1.0.9-Linux-64bit.tar.gz "
-    #we also need to edit our ~/.zshrc or ~/.bshrc and add a line of alias jcryptool and execute the jcryptool according to the location of the git-repo
-    #we also need to convert this into a multi-line
+    "cryptool": (
+        "wget https://github.com/jcryptool/core/releases/download/1.0.9/JCrypTool-1.0.9-Linux-64bit.tar.gz && "
+        "tar -zxvf JCrypTool-1.0.9-Linux-64bit.tar.gz && "
+        "cd ~/JCrypTool-1.0.9-Linux-64bit && "
+        "echo 'alias jcryptool=\"$(which jcryptool)\"' >> {rc_file}"
+    ),
     "hashcat": "sudo apt install hashcat",
     "tcpdump": "sudo apt install tcpdump",
     "nmap": "sudo apt install nmap",
@@ -33,6 +38,15 @@ def main():
                           default=list(package_lists.keys())), # Convert keys to list
     ]
     category_answers = inquirer.prompt(questions)['packages']
+
+    # Ask which shell the user is using
+    shell_question = [
+        inquirer.List('shell',
+                      message='Which shell are you using?',
+                      choices=['Bash', 'Zsh'],
+                      default='Bash'),
+    ]
+    shell_answer = inquirer.prompt(shell_question)['shell']
 
     for category in category_answers:
         sub_questions = [
@@ -54,13 +68,13 @@ def main():
         for package in packages:
             install_command = package_commands.get(package)
             if install_command:
+                rc_file = "~/.zshrc" if shell_answer == 'Zsh' else "~/.bashrc"
+                formatted_install_command = install_command.format(rc_file=rc_file)
+                
                 print(f"Installing {package}...")
-                os.system(install_command)
+                os.system(formatted_install_command)
             else:
                 print(f"No installation command found for {package}")
-
-    # Implement installation steps based on the selected categories and packages
-    
 
 if __name__ == '__main__':
     main()
