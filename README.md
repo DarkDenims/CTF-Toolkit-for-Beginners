@@ -9,7 +9,7 @@ git clone https://github.com/DarkDenims/CTF-Toolkit-for-Beginners.git
 ```
 sudo ./install.sh
 ```
-3. Select which type of distro your linux environment is under, and choose which software to install.
+3. Select which type of distro your linux environment is under, which Shell you are using(bash or zsh), and choose which software to install.
 
 
 # Tools sorted by Category
