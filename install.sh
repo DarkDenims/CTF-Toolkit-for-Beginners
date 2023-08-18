@@ -8,6 +8,18 @@ NC='\033[0m'
 echo -e "${RED}[*] Choose your Linux distribution:${NC}"
 options=("Debian-based (Parrot/Kali)" "Arch-based")
 
+"""
+Will install via categories soon starting with
+Cryptography
+Networking
+Web
+Steganography
+Forensics
+Exploit Development
+Misc
+"""
+
+
 select opt in "${options[@]}"; do
     case $opt in
         "Debian-based (Parrot/Kali)")
