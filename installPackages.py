@@ -9,7 +9,7 @@ package_lists = {
     "Steganography": ["steghide", "stegsolve"],
     "Exploit Development": ["pwntools", "johntheripper", "metasploit"],
     "OSINT": ["Sherlock", "Recon-ng"],
-    "Misc": ["PayloadsAllTheThings", "Seclists", "hydra", "rockyou"]
+    "Misc": ["Seclists", "hydra", "WordLists"]
 }
 
 # Define your package commands
@@ -30,7 +30,22 @@ package_commands = {
         "$ wget http://www.caesum.com/handbook/Stegsolve.jar -O ~/stegsolve.jar &&"
         "chmod +x ~/stegsolve.jar &&"
         "echo 'alias stegsolve=\"java -jar ~/stegsolve.jar\"' >> {rc_file}"
-    )
+    ),
+    "pwntools": "pip install pwntools",
+    "johntheripper": "sudo apt-get install john",
+    "metasploit": (
+        "sudo apt install curl gpgv2 autoconf bison build-essential git-core libapr1 postgresql libaprutil1 libcurl4-openssl-dev libgmp3-dev libpcap-dev openssl libpq-dev libreadline6-dev libsqlite3-dev libssl-dev locate libsvn1 libtool libxml2 libxml2-dev libxslt-dev wget libyaml-dev ncurses-dev  postgresql-contrib xsel zlib1g zlib1g-dev &&"
+        "curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \"
+        "chmod 755 msfinstall && \"
+        "./msfinstall"
+    ),
+    "sherlock": "sudo apt install sherlock",
+    "recon-ng": "sudo apt install recon-ng",
+    "seclists": "sudo apt install seclists",
+    "hydra": "sudo apt install hydra",
+    "wordlist": "sudo apt install wordlists"
+    
+    
 }
 
 home_dir = os.path.expanduser("~")

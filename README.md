@@ -69,4 +69,4 @@ Aside from these tools, there are also some miscellaneous tools you might need t
 | SecLists    | Another GitHub repo with a collection of security-related lists including wordlists, fuzzing lists, and more. | [GitHub](https://github.com/danielmiessler/SecLists) | Windows, Linux |
 | Exploit Database | A website listing known exploits and vulnerabilities maintained by Offensive Security. | [ExploitDB](https://www.exploit-db.com/) | Windows, Linux |
 | Hydra       | Fast and flexible password-cracking tool supporting multiple protocols and services. | Included with Kali Linux, [GitHub](https://github.com/vanhauser-thc/thc-hydra) | Windows, Linux |
-| rockyou     | Popular wordlist containing commonly used passwords. Ideal for password cracking. | Included with Kali Linux, [GitHub](https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt) | Windows, Linux |
+| Wordlists     | This package contains the rockyou.txt wordlist and has an installation size of 134 MB. Popular wordlist containing commonly used passwords. Ideal for password cracking. | Included with Kali Linux, [GitHub](https://github.com/00xBAD/kali-wordlists) | Windows, Linux |
