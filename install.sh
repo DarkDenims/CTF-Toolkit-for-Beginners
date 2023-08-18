@@ -11,12 +11,28 @@ options=("Debian-based (Parrot/Kali)" "Arch-based")
 """
 Will install via categories soon starting with
 Cryptography
+-Cryptool
+-Hashcat
 Networking
+-tcpdump
+-nmap
 Web
+-dirbuster
+-gobuster
 Steganography
-Forensics
+-steghide
+-stegsolve
 Exploit Development
+-pwntools
+-johntheripper
+-metasploit
+OSINT
+-Sherlock
 Misc
+-PayloadsAllTheThings
+-Seclists
+-hydra
+-rockyou
 """
 
 
@@ -27,6 +43,8 @@ select opt in "${options[@]}"; do
             # Update Repositories for Debian-based distro
             echo -e "${RED}[*] Updating repo list${NC}"
             sudo apt-get update
+
+            # wget https://github.com/jcryptool/core/releases/download/1.0.9/JCrypTool-1.0.9-Linux-64bit.tar.gz
             break
             ;;
         "Arch-based")
