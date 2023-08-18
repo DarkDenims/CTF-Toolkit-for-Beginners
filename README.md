@@ -17,7 +17,7 @@ sudo ./install.sh
 
 | Tool        | Description                                                 | Where to Get It | Used on      |
 |-------------|-------------------------------------------------------------|-----------------|--------------|
-| Cryptool    | Versatile tool for understanding and using encryption methods. Crack encryptions, unlock hidden messages, and solve cryptographic puzzles. | [Download](https://www.cryptool.org/en/ct1/downloadslink) | Windows, Linux |
+| Cryptool    | Versatile tool for understanding and using encryption methods. Crack encryptions, unlock hidden messages, and solve cryptographic puzzles. | [Download](https://www.cryptool.org/en/ct1/downloads) | Windows, Linux |
 | Hashcat     | Powerful password cracking tool. Crack hashed passwords, reveal hidden secrets, and find vulnerabilities. | [Download](https://hashcat.net/hashcat/) | Windows, Linux |
 
 ## Networking
