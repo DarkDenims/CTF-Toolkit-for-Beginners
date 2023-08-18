@@ -17,7 +17,7 @@ package_commands = {
     "cryptool": (
         "wget https://github.com/jcryptool/core/releases/download/1.0.9/JCrypTool-1.0.9-Linux-64bit.tar.gz && "
         "tar -zxvf JCrypTool-1.0.9-Linux-64bit.tar.gz && "
-        "cd ~/JCrypTool-1.0.9-Linux-64bit && "
+        "cd {home_dir}/JCrypTool-1.0.9-Linux-64bit && "
         "echo 'alias jcryptool=\"$(which jcryptool)\"' >> {rc_file}"
     ),
     "hashcat": "sudo apt install hashcat",
@@ -25,8 +25,17 @@ package_commands = {
     "nmap": "sudo apt install nmap",
     "dirbuster": "sudo apt install dirbuster",
     "gobuster": "sudo apt install gobuster",
-    # Add more packages and commands here
+    "steghide": "sudo apt install steghide",
+    "stegsolve": (
+        "$ wget http://www.caesum.com/handbook/Stegsolve.jar -O ~/stegsolve.jar &&"
+        "chmod +x ~/stegsolve.jar &&"
+        "echo 'alias stegsolve=\"java -jar ~/stegsolve.jar\"' >> {rc_file}"
+    )
 }
+
+home_dir = os.path.expanduser("~")
+rc_file = os.path.expanduser("~/.zshrc")  # or "~/.bashrc" depending on the user's shell
+package_commands = {pkg: cmd.format(home_dir=home_dir, rc_file=rc_file) for pkg, cmd in package_commands.items()}
 
 def main():
     selected_packages = {}
