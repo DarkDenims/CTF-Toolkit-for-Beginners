@@ -4,7 +4,7 @@
 echo "Choose your Linux distribution:"
 echo "1. Debian-based (Parrot/Kali)"
 echo "2. Arch-based"
-read -p "Current Distro:" distribution
+read -p "Current Distro: " distribution
 
 case $distribution in
     1)
