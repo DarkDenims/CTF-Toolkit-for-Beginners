@@ -2,7 +2,9 @@
 
 # Choose distribution
 echo "Choose your Linux distribution:"
-read -p "1. Debian-based (Parrot/Kali), 2. Arch-based: " distribution
+echo "1. Debian-based (Parrot/Kali)"
+echo "2. Arch-based"
+read -p "Current Distro:" distribution
 
 case $distribution in
     1)
@@ -19,5 +21,8 @@ case $distribution in
         ;;
 esac
 
+#Install Inquirer Python Dependency
+pip install inquirer
+
 # Call the Python script
-python3 install_packages.py
+python3 installPackages.py
