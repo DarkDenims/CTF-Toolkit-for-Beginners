@@ -59,6 +59,14 @@ sudo ./install.sh
 | John the Ripper | Password cracking tool. Test password combinations to breach security barriers and expose weaknesses. | [Download](https://www.openwall.com/john/) | Windows, Linux |
 | Metasploit  | Versatile framework for exploit development. Identify and exploit vulnerabilities, essential for hacking and system infiltration in CTF tasks. | [Download](https://www.metasploit.com) | Windows, Linux |
 
+## OSINT
+
+| Tool      | Description                                           | Where to Get It    | Platform |
+|-----------|-------------------------------------------------------|--------------------|----------|
+| Sherlock  | Find usernames across social networks.               | Kali Linux Repos   | Linux    |
+| recon-ng  | Full-featured Web Reconnaissance framework in Python | Kali Linux Repos   | Linux    |
+
+
 ## Miscellaneous
 
 Aside from these tools, there are also some miscellaneous tools you might need to use in solving CTF challenges or explore on your own:
