@@ -1,4 +1,5 @@
 import inquirer
+import os
 
 package_lists = {
     "Cryptography": ["Cryptool", "Hashcat"],
@@ -8,6 +9,12 @@ package_lists = {
     "Exploit Development": ["pwntools", "johntheripper", "metasploit"],
     "OSINT": ["Sherlock", "Recon-ng"],
     "Misc": ["PayloadsAllTheThings", "Seclists", "hydra", "rockyou"]
+}
+
+package_commands = {
+    "tcpdump": "sudo apt install tcpdump",
+    "nmap": "sudo apt install nmap",
+    # Add more packages and commands here
 }
 
 def main():
@@ -37,9 +44,17 @@ def main():
     print("Selected packages:")
     for category, packages in selected_packages.items():
         print(f"{category}: {', '.join(packages)}")
+        
+        for package in packages:
+            install_command = package_commands.get(package)
+            if install_command:
+                print(f"Installing {package}...")
+                os.system(install_command)
+            else:
+                print(f"No installation command found for {package}")
 
     # Implement installation steps based on the selected categories and packages
+    
 
 if __name__ == '__main__':
     main()
-c
