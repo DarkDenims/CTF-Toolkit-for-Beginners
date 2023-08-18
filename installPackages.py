@@ -20,32 +20,33 @@ package_commands = {
         "cd {home_dir}/JCrypTool-1.0.9-Linux-64bit && "
         "echo 'alias jcryptool=\"$(which jcryptool)\"' >> {rc_file}"
     ),
-    "hashcat": "sudo apt install hashcat",
-    "tcpdump": "sudo apt install tcpdump",
-    "nmap": "sudo apt install nmap",
-    "dirbuster": "sudo apt install dirbuster",
-    "gobuster": "sudo apt install gobuster",
-    "steghide": "sudo apt install steghide",
+    "hashcat": "sudo apt install hashcat -y",
+    "tcpdump": "sudo apt install tcpdump -y",
+    "nmap": "sudo apt install nmap -y",
+    "dirbuster": "sudo apt install dirbuster -y",
+    "gobuster": "sudo apt install gobuster -y",
+    "steghide": "sudo apt install steghide -y",
     "stegsolve": (
         "$ wget http://www.caesum.com/handbook/Stegsolve.jar -O ~/stegsolve.jar &&"
         "chmod +x ~/stegsolve.jar &&"
         "echo 'alias stegsolve=\"java -jar ~/stegsolve.jar\"' >> {rc_file}"
     ),
     "pwntools": "pip install pwntools",
-    "johntheripper": "sudo apt-get install john",
+    "johntheripper": "sudo apt-get install john -y",
     "metasploit": (
         "sudo apt install curl gpgv2 autoconf bison build-essential git-core libapr1 postgresql libaprutil1 libcurl4-openssl-dev libgmp3-dev libpcap-dev openssl libpq-dev libreadline6-dev libsqlite3-dev libssl-dev locate libsvn1 libtool libxml2 libxml2-dev libxslt-dev wget libyaml-dev ncurses-dev  postgresql-contrib xsel zlib1g zlib1g-dev &&"
-        "curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \"
-        "chmod 755 msfinstall && \"
+        # yes, I know. It's Long
+        # That's what she said.
+        # But these are dependencies of Metasploit.
+        "curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall &&"
+        "chmod 755 msfinstall &&"
         "./msfinstall"
     ),
-    "sherlock": "sudo apt install sherlock",
-    "recon-ng": "sudo apt install recon-ng",
-    "seclists": "sudo apt install seclists",
-    "hydra": "sudo apt install hydra",
-    "wordlist": "sudo apt install wordlists"
-    
-    
+    "sherlock": "sudo apt install sherlock -y",
+    "recon-ng": "sudo apt install recon-ng -y",
+    "seclists": "sudo apt install seclists -y",
+    "hydra": "sudo apt-get install hydra -y",
+    "wordlist": "sudo apt-get install wordlists -y"   
 }
 
 home_dir = os.path.expanduser("~")
@@ -88,15 +89,17 @@ def main():
     print("Selected packages:")
     for category, packages in selected_packages.items():
         print(f"{category}: {', '.join(packages)}")
-        
+
         for package in packages:
             install_command = package_commands.get(package)
             if install_command:
                 rc_file = "~/.zshrc" if shell_answer == 'Zsh' else "~/.bashrc"
                 formatted_install_command = install_command.format(rc_file=rc_file)
-                
+
                 print(f"Installing {package}...")
+                print(f"Running command: {formatted_install_command}")  # Add this line
                 os.system(formatted_install_command)
+                print(f"{package} installed.")  # Add this line
             else:
                 print(f"No installation command found for {package}")
 
