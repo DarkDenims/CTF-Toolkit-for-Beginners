@@ -12,8 +12,14 @@ package_lists = {
 }
 
 package_commands = {
+    "cryptool": "wget https://github.com/jcryptool/core/releases/download/1.0.9/JCrypTool-1.0.9-Linux-64bit.tar.gz && tar -zxvf JCrypTool-1.0.9-Linux-64bit.tar.gz "
+    #we also need to edit our ~/.zshrc or ~/.bshrc and add a line of alias jcryptool and execute the jcryptool according to the location of the git-repo
+    #we also need to convert this into a multi-line
+    "hashcat": "sudo apt install hashcat",
     "tcpdump": "sudo apt install tcpdump",
     "nmap": "sudo apt install nmap",
+    "dirbuster": "sudo apt install dirbuster",
+    "gobuster": "sudo apt install gobuster",
     # Add more packages and commands here
 }
 
