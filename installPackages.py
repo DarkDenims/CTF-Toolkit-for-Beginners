@@ -9,23 +9,24 @@ package_lists = {
     "Steganography": ["steghide", "stegsolve"],
     "Exploit Development": ["pwntools", "johntheripper", "metasploit"],
     "OSINT": ["Sherlock", "Recon-ng"],
-    "Misc": ["Seclists", "hydra", "WordLists"]
+    "Misc": ["SecLists", "hydra", "WordLists"]
 }
 
-# Define your package commands
-package_commands = {
-    "cryptool": (
+# Define your package commands for both Debian and Arch
+package_commands_debian = {
+    # Debian package commands
+    "Cryptool": (
         "wget https://github.com/jcryptool/core/releases/download/1.0.9/JCrypTool-1.0.9-Linux-64bit.tar.gz && "
         "tar -zxvf JCrypTool-1.0.9-Linux-64bit.tar.gz && "
         "cd {home_dir}/JCrypTool-1.0.9-Linux-64bit && "
         "echo 'alias jcryptool=\"$(which jcryptool)\"' >> {rc_file}"
     ),
-    "hashcat": "sudo apt install hashcat -y",
-    "tcpdump": "sudo apt install tcpdump -y",
-    "nmap": "sudo apt install nmap -y",
-    "dirbuster": "sudo apt install dirbuster -y",
-    "gobuster": "sudo apt install gobuster -y",
-    "steghide": "sudo apt install steghide -y",
+    "Hashcat": "sudo apt-get install hashcat -y",
+    "tcpdump": "sudo apt-get install tcpdump -y",
+    "nmap": "sudo apt-get install nmap -y",
+    "dirbuster": "sudo apt-get install dirbuster -y",
+    "gobuster": "sudo apt-get install gobuster -y",
+    "steghide": "sudo apt-get install steghide -y",
     "stegsolve": (
         "$ wget http://www.caesum.com/handbook/Stegsolve.jar -O ~/stegsolve.jar &&"
         "chmod +x ~/stegsolve.jar &&"
@@ -42,16 +43,49 @@ package_commands = {
         "chmod 755 msfinstall &&"
         "./msfinstall"
     ),
-    "sherlock": "sudo apt install sherlock -y",
-    "recon-ng": "sudo apt install recon-ng -y",
-    "seclists": "sudo apt install seclists -y",
+    "Sherlock": "sudo apt-get install sherlock -y",
+    "Recon-ng": "sudo apt-get install recon-ng -y",
+    "SecLists": "sudo apt-get install seclists -y",
     "hydra": "sudo apt-get install hydra -y",
-    "wordlist": "sudo apt-get install wordlists -y"   
+    "WordLists": "sudo apt-get install wordlists -y"
+}
+
+package_commands_arch = {
+    # Arch package commands
+    "Cryptool": (
+        "wget https://github.com/jcryptool/core/releases/download/1.0.9/JCrypTool-1.0.9-Linux-64bit.tar.gz && "
+        "tar -zxvf JCrypTool-1.0.9-Linux-64bit.tar.gz && "
+        "cd {home_dir}/JCrypTool-1.0.9-Linux-64bit && "
+        "echo 'alias jcryptool=\"$(which jcryptool)\"' >> {rc_file}"
+    ),
+    "Hashcat": "sudo pacman -S hashcat --noconfirm",
+    "tcpdump": "sudo pacman -S tcpdump --noconfirm",
+    "nmap": "sudo pacman -S nmap --noconfirm",
+    "dirbuster": "sudo pacman -S dirbuster --noconfirm",
+    "gobuster": "sudo pacman -S gobuster --noconfirm",
+    "steghide": "sudo pacman -S steghide --noconfirm",
+    "stegsolve": (
+        "$ wget http://www.caesum.com/handbook/Stegsolve.jar -O ~/stegsolve.jar &&"
+        "chmod +x ~/stegsolve.jar &&"
+        "echo 'alias stegsolve=\"java -jar ~/stegsolve.jar\"' >> {rc_file}"
+    ),
+    "pwntools": "pip install pwntools",
+    "johntheripper": "sudo pacman -S john --noconfirm",
+    "metasploit": (
+        "sudo pacman -S metasploit --noconfirm"
+        # Add additional commands for setting up Metasploit on Arch if needed
+    ),
+    "Sherlock": "sudo pacman -S sherlock --noconfirm",
+    "Recon-ng": "sudo pacman -S recon-ng --noconfirm",
+    "SecLists": "sudo pacman -S seclists --noconfirm",
+    "hydra": "sudo pacman -S hydra --noconfirm",
+    "WordLists": "sudo pacman -S wordlists --noconfirm"
 }
 
 home_dir = os.path.expanduser("~")
 rc_file = os.path.expanduser("~/.zshrc")  # or "~/.bashrc" depending on the user's shell
-package_commands = {pkg: cmd.format(home_dir=home_dir, rc_file=rc_file) for pkg, cmd in package_commands.items()}
+package_commands_debian = {pkg: cmd.format(home_dir=home_dir, rc_file=rc_file) for pkg, cmd in package_commands_debian.items()}
+package_commands_arch = {pkg: cmd.format(home_dir=home_dir, rc_file=rc_file) for pkg, cmd in package_commands_arch.items()}
 
 def main():
     selected_packages = {}
@@ -64,14 +98,14 @@ def main():
     ]
     category_answers = inquirer.prompt(questions)['packages']
 
-    # Ask which shell the user is using
-    shell_question = [
-        inquirer.List('shell',
-                      message='Which shell are you using?',
-                      choices=['Bash', 'Zsh'],
-                      default='Bash'),
+    # Ask which distribution the user is using
+    distro_question = [
+        inquirer.List('distro',
+                      message='Which distribution are you using?',
+                      choices=['Debian', 'Arch'],
+                      default='Debian'),
     ]
-    shell_answer = inquirer.prompt(shell_question)['shell']
+    distro_answer = inquirer.prompt(distro_question)['distro']
 
     for category in category_answers:
         sub_questions = [
@@ -91,17 +125,24 @@ def main():
         print(f"{category}: {', '.join(packages)}")
 
         for package in packages:
-            install_command = package_commands.get(package)
+            if distro_answer == 'Debian':
+                install_command = package_commands_debian.get(package)
+            elif distro_answer == 'Arch':
+                install_command = package_commands_arch.get(package)
+            else:
+                install_command = None
+
             if install_command:
                 rc_file = "~/.zshrc" if shell_answer == 'Zsh' else "~/.bashrc"
                 formatted_install_command = install_command.format(rc_file=rc_file)
 
                 print(f"Installing {package}...")
-                print(f"Running command: {formatted_install_command}")  # Add this line
+                print(f"Running command: {formatted_install_command}")
                 os.system(formatted_install_command)
-                print(f"{package} installed.")  # Add this line
+                print(f"{package} installed.")
             else:
                 print(f"No installation command found for {package}")
 
 if __name__ == '__main__':
     main()
+    print("\nPackage installation completed.")
